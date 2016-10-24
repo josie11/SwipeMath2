@@ -10,13 +10,15 @@ import SwipeInfoContainer from './swipe-info-container.js';
 //import game logic
 import Game from '../game-logic/game.js';
 
+const game = new Game(5, 10);
+
 class GameContainer extends Component {
   render() {
     return (
       <View>
         <GameInfoContainer />
         <SwipeInfoContainer />
-        <BoardContainer />
+        <BoardContainer board={game.board} />
         <GameControlContainer />
       </View>
     );

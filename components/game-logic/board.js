@@ -6,12 +6,12 @@ class Board {
   constructor(gridSize, goalNumber) {
     this.gridSize = gridSize;
     this.goalNumber = goalNumber;
-    this.board = this.constructBoard(size, goalNumber);
+    this.board = this.constructBoard(gridSize, goalNumber);
   }
 
   constructBoard(gridSize, goalNumber) {
     let board = [];
-    for(let i = 0; i < gridSize * gridSize; i++) board.push(new Tile(id, goalNumber));
+    for(let i = 0; i < gridSize * gridSize; i++) board.push(new Tile(i, goalNumber));
     return board;
   }
 
