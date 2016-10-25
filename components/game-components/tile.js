@@ -12,7 +12,8 @@ const styles = StyleSheet.create({
     margin: Dimensions.boardContainer.width * .005,
     borderRadius: 20
   },
-  tileText: {
+  tileContainer: {
+    flex: 1,
     justifyContent: 'center',
     alignItems: 'center'
   }
@@ -26,7 +27,7 @@ class Tile extends Component {
   render() {
     return (
       <View style={styles.tile}>
-        <View style={styles.tileText}>
+        <View style={styles.tileContainer}>
           <Text>{this.props.tileData.value}</Text>
         </View>
       </View>
