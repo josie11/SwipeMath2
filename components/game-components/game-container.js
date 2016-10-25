@@ -13,12 +13,17 @@ import Game from '../game-logic/game.js';
 const game = new Game(5, 10);
 
 class GameContainer extends Component {
+
+  constructor() {
+    super();
+    this.state = {game};
+  }
   render() {
     return (
       <View>
         <GameInfoContainer />
         <SwipeInfoContainer />
-        <BoardContainer board={game.board} />
+        <BoardContainer board={this.state.game.board} />
         <GameControlContainer />
       </View>
     );

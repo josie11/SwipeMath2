@@ -19,7 +19,7 @@ class Board {
     let operators = {
       '+': function(num1, num2) { return num1 + num2; },
       '-': function(num1, num2) { return num1 - num2; },
-      '/': function(num1, num2) { return num1 / num2; },
+      '÷': function(num1, num2) { return num1 / num2; },
       '*': function(num1, num2) { return num1 * num2; }
     }
     return Math.abs(Math.floor(operators[op](val2, val1)));

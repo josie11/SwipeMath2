@@ -4,18 +4,25 @@ import { View, Text, StyleSheet } from 'react-native';
 import Colors from '../styles/color-schemes.js'
 import Dimensions from '../styles/dimensions.js'
 
+const width = Dimensions.boardContainer.width;
+const tileSize = width * .19;
+
 const styles = StyleSheet.create({
   tile: {
     backgroundColor: Colors.turquoise,
-    width: Dimensions.boardContainer.width * .19,
-    height: Dimensions.boardContainer.width * .19,
-    margin: Dimensions.boardContainer.width * .005,
-    borderRadius: 20
+    width: tileSize,
+    height: tileSize,
+    margin: width * .0025,
+    borderRadius: 10
   },
   tileContainer: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center'
+  },
+  text: {
+    fontSize: tileSize * .5,
+
   }
 })
 
@@ -28,7 +35,7 @@ class Tile extends Component {
     return (
       <View style={styles.tile}>
         <View style={styles.tileContainer}>
-          <Text>{this.props.tileData.value}</Text>
+          <Text style={styles.text}>{this.props.tileData.value}</Text>
         </View>
       </View>
     );
