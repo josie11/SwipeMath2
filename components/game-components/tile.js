@@ -9,8 +9,8 @@ const styles = StyleSheet.create({
     backgroundColor: Colors.turquoise,
     width: Dimensions.boardContainer.width * .19,
     height: Dimensions.boardContainer.width * .19,
-    margin: Dimensions.boardContainer * .01,
-    borderRadius: 15
+    margin: Dimensions.boardContainer.width * .005,
+    borderRadius: 20
   },
   tileText: {
     justifyContent: 'center',
