@@ -1,7 +1,13 @@
 import React, { Component } from 'react';
-import { View } from 'react-native';
+import { View, StyleSheet } from 'react-native';
 
-import Tile from './tile.js';
+import BoardRow from './board-row.js';
+
+const styles = StyleSheet.create({
+  row: {
+    flexDirection: 'row',
+  }
+})
 
 class Board extends Component {
 
@@ -11,18 +17,26 @@ class Board extends Component {
 
   render() {
     return (
-      <View>
-        {this.renderTiles()}
+      <View style={styles.row}>
+        {this.renderRows()}
       </View>
     );
   }
 
-  renderTiles() {
-    return this.props.board.board.map(tile => this.renderTile(tile))
+  //returns array of board-rows
+  renderRows() {
+    let boardRows = [];
+    let rows = this.props.board.gridSize;
+
+    for(let i = 0; i < this.props.board.board.length; i += rows) {
+      let tiles = this.props.board.board.slice(i, i + rows);
+      boardRows.push(this.renderRow(tiles, i / rows));
+    }
+    return boardRows;
   }
 
-  renderTile(tile) {
-    return <Tile tileData={tile} key={tile.id} />
+  renderRow(tiles, id) {
+    return <BoardRow tiles={tiles} key={id} />;
   }
 }
 
