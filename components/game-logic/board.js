@@ -20,16 +20,23 @@ class Board {
     return neighborAdjustors[direction];
   }
 
-  //MAY NOT NEED ANYMORE
-  neighborTile(id) {
-    return [id - this.gridSize, id + this.gridSize, id - 1, id + 1].filter(function(value) {
-      if(value >= 0) return value;
+  //REWRITE THIS TO HAVE SMARTER LOGIC!!!!!!! THIS IS BAD
+  neighborTiles(id) {
+      return [id - this.gridSize, id + this.gridSize, id - 1, id + 1].filter((value) => {
+        //tile is not off the board
+        let upDownEdgeCase = value >= 0 && value < this.board.length;
+        //swipe of rightmost tile does not bleed into first tile of next row
+        let rightEdgeCase = ((id + 1) % this.gridSize === 0 && value % this.gridSize === 0);
+        //swipe leftmost tile does not bleed into last tile of previous row
+        let leftEdgeCase = (id % this.gridSize === 0 && (value + 1) % this.gridSize === 0);
+        if(upDownEdgeCase && !rightEdgeCase && !leftEdgeCase) return true;
     });
   }
 
   startMerge(id, direction) {
-    let neighbor = this.getNeighbor(id, direction);
-    if( neighbor >= 0) this.mergeTiles(id, neighbor, '+');
+    let neighborTile = this.getNeighbor(id, direction);
+    let validNeighbor = this.neighborTiles(id).includes(neighborTile);
+    if(validNeighbor) this.mergeTiles(id, neighborTile, '+');
   }
 
   mergeTiles(startId, endId, op) {
