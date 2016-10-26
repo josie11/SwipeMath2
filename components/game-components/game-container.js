@@ -1,5 +1,7 @@
+'use strict';
+
 import React, { Component } from 'react';
-import { View } from 'react-native';
+import { View, StatusBar } from 'react-native';
 
 //import components
 import GameInfoContainer from './game-info-container.js';
@@ -21,7 +23,8 @@ class GameContainer extends Component {
   render() {
     return (
       <View>
-        <GameInfoContainer />
+        <StatusBar hidden={true} />
+        <GameInfoContainer game={this.state.game}/>
         <SwipeInfoContainer />
         <BoardContainer board={this.state.game.board} />
         <GameControlContainer />

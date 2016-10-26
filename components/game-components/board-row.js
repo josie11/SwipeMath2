@@ -1,14 +1,15 @@
 import React, { Component } from 'react';
 import { View, StyleSheet } from 'react-native';
 
-import Tile from './tile.js'
+import Tile from './tile.js';
 
 //styling
-import Colors from '../styles/color-schemes.js'
-import Dimensions from '../styles/dimensions.js'
+import Colors from '../styles/color-schemes.js';
+import Dimensions from '../styles/dimensions.js';
 
 const styles = StyleSheet.create({
   row: {
+    flexDirection: 'row',
   }
 })
 
@@ -26,7 +27,7 @@ class BoardRow extends Component {
   }
 
   renderTile(tile) {
-    return <Tile tileData={tile} key={tile.id} />;
+    return <Tile handleSwipe={this.props.handleSwipe} tileData={tile} key={tile.id} />;
   }
 }
 

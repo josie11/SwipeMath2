@@ -9,14 +9,20 @@ const operators = ['+', '-', '*', '÷'];
 
 const styles = StyleSheet.create({
   container: {
-  }
+    borderRadius: 10,
+    overflow: 'hidden'
+  },
+
+  row: {
+    flexDirection: 'row'
+  },
 });
 
 class MathButtons extends Component {
   render() {
     return (
       <View style={styles.container}>
-        {this.renderRows()}
+          {this.renderRows()}
       </View>
     );
   }
@@ -24,16 +30,18 @@ class MathButtons extends Component {
   //returns array of 2 rows of 2 operator buttons
   renderRows() {
     //array of 4 operator buttons
-    let buttons = operators.map((op, i) => this.renderButton(op, i));
+    let buttons = operators.map((op) => this.renderButton(op));
+
+    //return array of 2 rows with operator buttons
     return [this.renderRow(buttons.slice(0, 2), 0), this.renderRow(buttons.slice(2), 1)];
   }
 
   renderRow(arr, i) {
-    return <View key={i}>{arr}</View>;
+    return <View style={styles.row} key={i}>{arr}</View>;
   }
 
-  renderButton(op, i) {
-    return <MathButton operator={op} key={i} />;
+  renderButton(op) {
+    return <MathButton operator={op} key={op} />;
   }
 }
 

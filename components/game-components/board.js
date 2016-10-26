@@ -6,8 +6,7 @@ import { View, StyleSheet } from 'react-native';
 import BoardRow from './board-row.js';
 
 const styles = StyleSheet.create({
-  row: {
-    flexDirection: 'row',
+  container: {
   }
 })
 
@@ -19,7 +18,7 @@ class Board extends Component {
 
   render() {
     return (
-      <View style={styles.row}>
+      <View style={styles.container}>
         {this.renderRows()}
       </View>
     );
@@ -29,7 +28,6 @@ class Board extends Component {
   renderRows() {
     let boardRows = [];
     let rows = this.props.board.gridSize;
-
     for(let i = 0; i < this.props.board.board.length; i += rows) {
       let tiles = this.props.board.board.slice(i, i + rows);
       boardRows.push(this.renderRow(tiles, i / rows));
@@ -38,7 +36,20 @@ class Board extends Component {
   }
 
   renderRow(tiles, id) {
-    return <BoardRow tiles={tiles} key={id} />;
+    return <BoardRow
+      tiles={tiles}
+      key={id}
+      handleSwipe={this.handleSwipe.bind(this)}
+    />;
+  }
+
+  handleSwipe(id, direction) {
+    this.props.board.startMerge(id, direction);
+    this.updateBoard();
+  }
+
+  updateBoard() {
+    this.setState({'board': this.props.board.board});
   }
 }
 

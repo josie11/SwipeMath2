@@ -6,7 +6,16 @@ const width = Dimensions.get('window').width; //full width
 const height = Dimensions.get('window').height; //full height
 
 export default {
+  width: width,
+  height: height,
+
   boardContainer: {
     width: width * .8
-  }
+  },
+
+  mathButton: {
+    width: width * .15
+  },
+
+
 }

@@ -1,17 +1,23 @@
 'use strict';
 
 import React, { Component } from 'react';
-import { View, StyleSheet, Text } from 'react-native';
+import { View, Text, StyleSheet } from 'react-native';
+
+import Dimensions from '../styles/dimensions.js';
+import Colors from '../styles/color-schemes.js';
 
 const styles = StyleSheet.create({
-  container: {
+  button: {
+    width: Dimensions.mathButton.width,
+    height: Dimensions.mathButton.width,
+    backgroundColor: Colors.articLime,
   }
 })
 
 class MathButton extends Component {
   render() {
     return (
-      <View style={styles.container}>
+      <View style={styles.button}>
         <Text>{this.props.operator}</Text>
       </View>
     );
