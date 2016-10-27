@@ -9,7 +9,7 @@ class GameControlContainer extends Component {
   render() {
     return (
       <View>
-        <MathButtons />
+        <MathButtons board={this.props.board}/>
         <Text>New Game</Text>
         <Text>Refresh Board</Text>
       </View>

@@ -27,7 +27,7 @@ class GameContainer extends Component {
         <GameInfoContainer game={this.state.game}/>
         <SwipeInfoContainer />
         <BoardContainer board={this.state.game.board} />
-        <GameControlContainer />
+        <GameControlContainer board={this.state.game.board} />
       </View>
     );
   }

@@ -45,12 +45,6 @@ class Tile extends Component {
         // gestureState.{x,y}0 will be set to zero now
       },
 
-      onPanResponderTerminate: (evt, gestureState) => {
-        // Another component has become the responder, so this gesture
-        // should be cancelled
-        // console.log(this.props.tileData, 'TILE RELEASED')
-      },
-
       onPanResponderRelease: (e, gs) => {
         let sgs = new SimpleGesture(e,gs);
         let id = this.props.tileData.id;

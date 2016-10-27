@@ -7,6 +7,7 @@ class Board {
     this.gridSize = gridSize;
     this.goalNumber = goalNumber;
     this.board = this.constructBoard(gridSize, goalNumber);
+    this.operator = '+';
   }
 
   constructBoard(gridSize, goalNumber) {
@@ -18,6 +19,14 @@ class Board {
   getNeighbor(id, direction) {
     let neighborAdjustors = { 'up': id - this.gridSize, 'down': id + this.gridSize, 'left': id - 1, 'right': id + 1 };
     return neighborAdjustors[direction];
+  }
+
+  refreshBoard() {
+    this.board = this.constructBoard(this.gridSize, this.goalNumber);
+  }
+
+  changeOperator(op) {
+    this.operator = op;
   }
 
   //REWRITE THIS TO HAVE SMARTER LOGIC!!!!!!! THIS IS BAD
@@ -34,15 +43,16 @@ class Board {
   }
 
   startMerge(id, direction) {
+    debugger;
     let neighborTile = this.getNeighbor(id, direction);
     let validNeighbor = this.neighborTiles(id).includes(neighborTile);
-    if(validNeighbor) this.mergeTiles(id, neighborTile, '+');
+    if(validNeighbor) this.mergeTiles(id, neighborTile, this.operator);
   }
 
   mergeTiles(startId, endId, op) {
     let endValue = this.doMath(this.board[startId].value, op, this.board[endId].value);
     //combine the swipecounts
-    this.board[endId].swipeCount += this.board[startId].swipeCount;
+    this.board[endId].swipeCount += this.board[startId].swipeCount + 1;
     //set merged tile to math result value
     this.board[endId].value = endValue;
     //merged tile resets

@@ -44,6 +44,7 @@ class Board extends Component {
   }
 
   handleSwipe(id, direction) {
+    debugger;
     this.props.board.startMerge(id, direction);
     this.updateBoard();
   }

@@ -1,26 +1,34 @@
 'use strict';
 
 import React, { Component } from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Text, TouchableHighlight } from 'react-native';
 
 import Dimensions from '../styles/dimensions.js';
 import Colors from '../styles/color-schemes.js';
 
-const styles = StyleSheet.create({
-  button: {
+const styles = function(active) {
+  let color = active ? Colors.orangeYellow : Colors.articLime;
+  return {
     width: Dimensions.mathButton.width,
     height: Dimensions.mathButton.width,
-    backgroundColor: Colors.articLime,
+    backgroundColor: color
   }
-})
+}
 
 class MathButton extends Component {
   render() {
+    let style = styles(this.props.active);
     return (
-      <View style={styles.button}>
-        <Text>{this.props.operator}</Text>
-      </View>
+      <TouchableHighlight onPress={this.onPressButton.bind(this)}>
+        <View style={style}>
+          <Text>{this.props.operator}</Text>
+        </View>
+      </TouchableHighlight>
     );
+  }
+
+  onPressButton() {
+    this.props.changeOperator(this.props.operator);
   }
 }
 

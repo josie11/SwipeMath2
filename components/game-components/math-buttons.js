@@ -9,8 +9,7 @@ const operators = ['+', '-', '*', '÷'];
 
 const styles = StyleSheet.create({
   container: {
-    borderRadius: 10,
-    overflow: 'hidden'
+
   },
 
   row: {
@@ -19,6 +18,12 @@ const styles = StyleSheet.create({
 });
 
 class MathButtons extends Component {
+
+  constructor(props) {
+    super(props);
+    this.state = {operator : this.props.board.operator};
+  }
+
   render() {
     return (
       <View style={styles.container}>
@@ -41,7 +46,12 @@ class MathButtons extends Component {
   }
 
   renderButton(op) {
-    return <MathButton operator={op} key={op} />;
+    return <MathButton operator={op} key={op} active={this.props.board.operator === op} changeOperator={this.changeOperater.bind(this)} />;
+  }
+
+  changeOperater(op) {
+    this.props.board.changeOperator(op);
+    this.setState({operator: op});
   }
 }
 
