@@ -27,7 +27,13 @@ class BoardRow extends Component {
   }
 
   renderTile(tile) {
-    return <Tile handleSwipe={this.props.handleSwipe} tileData={tile} gridSize={this.props.gridSize} key={tile.id} />;
+    return <Tile
+      handleSwipe={this.props.handleSwipe}
+      tileData={tile}
+      gridSize={this.props.gridSize}
+      key={tile.id}
+      activeTile={tile.id === this.props.getActiveTileId()}
+    />;
   }
 }
 

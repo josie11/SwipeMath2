@@ -13,15 +13,15 @@ class GameInfoContainer extends Component {
       <View>
         <View>
           <Text>Score</Text>
-          <Text>{this.props.game.score}</Text>
+          <Text>{this.props.game.getScore()}</Text>
         </View>
         <View>
           <Text>Swipes</Text>
-          <Text>3</Text>
+          <Text>{this.props.game.getGoalSwipes()}</Text>
         </View>
         <View>
           <Text>Goal Number</Text>
-          <Text>{this.props.game.goalNumber}</Text>
+          <Text>{this.props.game.getGoalNumber()}</Text>
         </View>
       </View>
     );

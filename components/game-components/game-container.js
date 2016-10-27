@@ -12,7 +12,7 @@ import SwipeInfoContainer from './swipe-info-container.js';
 //import game logic
 import Game from '../game-logic/game.js';
 
-const game = new Game(5, 10);
+const game = new Game();
 
 class GameContainer extends Component {
 
@@ -27,18 +27,22 @@ class GameContainer extends Component {
         <StatusBar hidden={true} />
         <GameInfoContainer game={this.state.game}/>
         <SwipeInfoContainer />
-        <BoardContainer board={this.state.game.board} />
+        <BoardContainer board={this.state.game.board} score={this.state.game.score} />
         <GameControlContainer board={this.state.game.board} newGame={this.newGame.bind(this)} refreshBoard={this.refreshBoard.bind(this)} />
       </View>
     );
   }
 
   newGame() {
-    this.setState({game: new Game(5, 10)});
+    this.setState({game: new Game()});
   }
 
   refreshBoard() {
-    this.state.game.refreshBoard(5, 10);
+    this.state.game.refreshBoard();
+    this.updateGame();
+  }
+
+  updateGame() {
     this.setState({game: this.state.game});
   }
 }

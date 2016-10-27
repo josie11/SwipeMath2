@@ -7,20 +7,21 @@ import Dimensions from '../styles/dimensions.js'
 
 const width = Dimensions.boardContainer.width;
 
-const tileStyle = function(maxSize) {
+const tileStyle = function(maxSize, active = false) {
   let margin = maxSize * .025;
   let maxLessMargin = maxSize - (margin * 4);
+  let color = active ? Colors.tangoPink : Colors.turquoise;
   return {
-    backgroundColor: Colors.turquoise,
+    backgroundColor: color,
     width: maxLessMargin,
     height: maxLessMargin,
     margin: margin,
-    borderRadius: maxLessMargin / 5,
+    borderRadius: maxLessMargin / 10,
   }
 }
 
 //margins?
-const textStyle = function(maxSize) {
+const textStyle = function(maxSize, active = false) {
   return {
     fontSize: maxSize * .5
   }
@@ -69,7 +70,7 @@ class Tile extends Component {
   render() {
     let maxTileSize = width / this.props.gridSize;
     return (
-          <View style={tileStyle(maxTileSize)} { ...this._panResponder.panHandlers }>
+          <View style={tileStyle(maxTileSize, this.props.activeTile)} { ...this._panResponder.panHandlers }>
             <View style={styles.tileContainer}>
               <Text style={textStyle(maxTileSize)}>{this.props.tileData.value}</Text>
             </View>

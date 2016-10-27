@@ -9,6 +9,7 @@ class Board {
     this.goalNumber = goalNumber;
     this.board = this.constructBoard(gridSize, goalNumber);
     this.operator = '+';
+    this.currentTiles = [];
   }
 
   constructBoard(gridSize, goalNumber) {
@@ -42,7 +43,15 @@ class Board {
   startMerge(id, direction) {
     let neighborTile = this.getNeighbor(id, direction);
     let validNeighbor = this.neighborTiles(id).includes(neighborTile);
-    if(validNeighbor) this.mergeTiles(id, neighborTile, this.operator);
+    //if merged
+    if(validNeighbor) {
+      this.mergeTiles(id, neighborTile, this.operator);
+      return true;
+    } else {
+      //if didn't merge, check to see if need to refresh current swipes
+      this.checkCurrentSwipes(id, id);
+      return false;
+    }
   }
 
   mergeTiles(startId, endId, op) {
@@ -53,6 +62,30 @@ class Board {
     this.board[endId].value = endValue;
     //merged tile resets
     this.newTile(startId);
+    //check to see if in a new location on board
+    this.checkCurrentSwipes(startId, endId);
+  }
+
+  checkCurrentSwipes(startId, endId) {
+    if(!this.currentTiles.length) {
+      //no swipe history, just add to current swipes array
+      this.currentTiles.unshift(endId)
+    } else if(startId !== this.getCurrentTile()) {
+      //if current starting point is not the current tile
+      this.refreshCurrentSwipes();
+      this.currentTiles.unshift(endId)
+    } else {
+      //starting point is current active tile, add to currentTiles array
+      this.currentTiles.unshift(endId)
+    }
+  }
+
+  refreshCurrentSwipes() {
+    this.currentTiles = [];
+  }
+
+  getCurrentTile() {
+    return this.currentTiles[0];
   }
 
   //accesses operations from operations.js

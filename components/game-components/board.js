@@ -14,6 +14,7 @@ class Board extends Component {
 
   constructor(props) {
     super(props);
+    this.state={activeTileId: null}
   }
 
   render() {
@@ -41,13 +42,19 @@ class Board extends Component {
       gridSize={this.props.board.gridSize}
       key={id}
       handleSwipe={this.handleSwipe.bind(this)}
+      getActiveTileId={this.props.board.getCurrentTile.bind(this.props.board)}
     />;
   }
 
   handleSwipe(id, direction) {
-    debugger;
-    this.props.board.startMerge(id, direction);
-    this.updateBoard();
+    let merged = this.props.board.startMerge(id, direction);
+    if(merged) {
+      this.updateBoard();
+      this.setState({activeTileId : this.props.board.getCurrentTile()});
+      //scoring logic check
+    } else {
+      this.setState({activeTileId : id});
+    }
   }
 
   updateBoard() {
