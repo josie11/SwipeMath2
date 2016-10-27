@@ -10,7 +10,7 @@ export default {
   height: height,
 
   boardContainer: {
-    width: width * .8
+    width: width * .95
   },
 
   mathButton: {

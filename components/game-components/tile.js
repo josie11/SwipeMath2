@@ -6,24 +6,31 @@ import Colors from '../styles/color-schemes.js'
 import Dimensions from '../styles/dimensions.js'
 
 const width = Dimensions.boardContainer.width;
-const tileSize = width * .19;
 
-//create function for inline styling that will take a status (active, not active, swipecount, etc)
-const styles = StyleSheet.create({
-  tile: {
+const tileStyle = function(maxSize) {
+  let margin = maxSize * .025;
+  let maxLessMargin = maxSize - (margin * 4);
+  return {
     backgroundColor: Colors.turquoise,
-    width: tileSize,
-    height: tileSize,
-    margin: width * .0025,
-    borderRadius: 10
-  },
+    width: maxLessMargin,
+    height: maxLessMargin,
+    margin: margin,
+    borderRadius: maxLessMargin / 5,
+  }
+}
+
+//margins?
+const textStyle = function(maxSize) {
+  return {
+    fontSize: maxSize * .5
+  }
+}
+
+const styles = StyleSheet.create({
   tileContainer: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center'
-  },
-  text: {
-    fontSize: tileSize * .5,
   }
 })
 
@@ -60,10 +67,11 @@ class Tile extends Component {
   }
 
   render() {
+    let maxTileSize = width / this.props.gridSize;
     return (
-          <View style={styles.tile} { ...this._panResponder.panHandlers }>
+          <View style={tileStyle(maxTileSize)} { ...this._panResponder.panHandlers }>
             <View style={styles.tileContainer}>
-              <Text style={styles.text}>{this.props.tileData.value}</Text>
+              <Text style={textStyle(maxTileSize)}>{this.props.tileData.value}</Text>
             </View>
           </View>
     );

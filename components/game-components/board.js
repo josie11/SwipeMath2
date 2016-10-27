@@ -38,6 +38,7 @@ class Board extends Component {
   renderRow(tiles, id) {
     return <BoardRow
       tiles={tiles}
+      gridSize={this.props.board.gridSize}
       key={id}
       handleSwipe={this.handleSwipe.bind(this)}
     />;
