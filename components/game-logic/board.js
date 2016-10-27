@@ -1,6 +1,7 @@
 'use strict';
 
-import Tile from './tile.js'
+import Tile from './tile.js';
+import Operations from './operations.js';
 
 class Board {
   constructor(gridSize, goalNumber) {
@@ -21,10 +22,6 @@ class Board {
     return neighborAdjustors[direction];
   }
 
-  refreshBoard() {
-    this.board = this.constructBoard(this.gridSize, this.goalNumber);
-  }
-
   changeOperator(op) {
     this.operator = op;
   }
@@ -43,7 +40,6 @@ class Board {
   }
 
   startMerge(id, direction) {
-    debugger;
     let neighborTile = this.getNeighbor(id, direction);
     let validNeighbor = this.neighborTiles(id).includes(neighborTile);
     if(validNeighbor) this.mergeTiles(id, neighborTile, this.operator);
@@ -59,14 +55,9 @@ class Board {
     this.newTile(startId);
   }
 
+  //accesses operations from operations.js
   doMath(val1, op, val2) {
-    let operators = {
-      '+': function(num1, num2) { return num1 + num2; },
-      '-': function(num1, num2) { return num1 - num2; },
-      '÷': function(num1, num2) { return num1 / num2; },
-      '*': function(num1, num2) { return num1 * num2; }
-    }
-    return Math.abs(Math.floor(operators[op](val2, val1)));
+    return Math.abs(Math.floor(Operations[op](val2, val1)));
   }
 
   //resets tile after it is merged

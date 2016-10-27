@@ -20,6 +20,7 @@ class GameContainer extends Component {
     super();
     this.state = {game};
   }
+
   render() {
     return (
       <View>
@@ -27,9 +28,18 @@ class GameContainer extends Component {
         <GameInfoContainer game={this.state.game}/>
         <SwipeInfoContainer />
         <BoardContainer board={this.state.game.board} />
-        <GameControlContainer board={this.state.game.board} />
+        <GameControlContainer board={this.state.game.board} newGame={this.newGame.bind(this)} refreshBoard={this.refreshBoard.bind(this)} />
       </View>
     );
+  }
+
+  newGame() {
+    this.setState({game: new Game(5, 10)});
+  }
+
+  refreshBoard() {
+    this.state.game.refreshBoard(5, 10);
+    this.setState({game: this.state.game});
   }
 }
 

@@ -9,6 +9,9 @@ class Game {
     this.score = 0;
   }
 
+  refreshBoard(size, goalNumber) {
+    this.board = new Board(size, goalNumber);
+  }
 }
 
 export default Game;
