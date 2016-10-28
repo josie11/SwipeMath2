@@ -27,7 +27,7 @@ class GameContainer extends Component {
         <StatusBar hidden={true} />
         <GameInfoContainer game={this.state.game}/>
         <SwipeInfoContainer />
-        <BoardContainer board={this.state.game.board} score={this.state.game.score}  />
+        <BoardContainer board={this.state.game.board} score={this.state.game.score} updateGame={this.updateGame.bind(this)} />
         <GameControlContainer board={this.state.game.board} newGame={this.newGame.bind(this)} refreshBoard={this.refreshBoard.bind(this)} />
       </View>
     );
@@ -37,8 +37,10 @@ class GameContainer extends Component {
     this.setState({game: new Game()});
   }
 
+  //reset board, reset current move storage to styling goes away
   refreshBoard() {
     this.state.game.refreshBoard();
+    this.state.game.score.refreshMoves();
     this.updateGame();
   }
 

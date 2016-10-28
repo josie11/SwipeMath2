@@ -44,8 +44,7 @@ export default class Score {
   checkIfScored(endTile, operation) {
     if(this.scored(endTile.value)) {
       this.score += endTile.swipeCount;
-      this.refreshCurrentSwipes();
-      this.refreshCurrentOperators();
+      this.refreshMoves();
     } else if(this.maxSwipes()){
       this.refreshCurrentSwipes(endTile);
       this.refreshCurrentOperators(operation);
@@ -60,6 +59,11 @@ export default class Score {
 
   maxSwipes() {
     return this.currentOperations.length === this.goalSwipes;
+  }
+
+  refreshMoves() {
+    this.refreshCurrentOperators();
+    this.refreshCurrentSwipes();
   }
 
   refreshCurrentSwipes(id = null) {

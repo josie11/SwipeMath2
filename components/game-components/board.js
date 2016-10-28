@@ -14,7 +14,7 @@ class Board extends Component {
 
   constructor(props) {
     super(props);
-    this.state={activeTileId: null}
+    this.state={activeTileId: null, score: this.props.score.score}
   }
 
   render() {
@@ -46,23 +46,23 @@ class Board extends Component {
     />;
   }
 
-  //needs rewriting
+  //needs rewriting, this is a mess
   handleSwipe(id, direction) {
     let merged = this.props.board.startMerge(id, direction);
     if(merged) {
       let endId = this.props.board.getEndId(id, direction);
       let startTile = this.props.board.board[id], endTile = this.props.board.board[endId];
-      this.updateBoard();
       this.props.score.updateScoreTracking(startTile, endTile, this.props.board.operator)
       this.setState({activeTileId : this.props.score.getLastTileSwipedId()});
-      console.log(this.props.score);
+      //you have scored, update score, refresh tile
+      if(this.state.score !== this.props.score.score) {
+        this.props.board.newTile(endTile.id);
+        this.setState({score: this.props.score.score});
+        this.props.updateGame();
+      }
     } else {
       this.setState({activeTileId : id});
     }
-  }
-
-  updateBoard() {
-    this.setState({'board': this.props.board.board});
   }
 }
 
