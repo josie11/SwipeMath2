@@ -26,7 +26,7 @@ class GameContainer extends Component {
       <View>
         <StatusBar hidden={true} />
         <GameInfoContainer game={this.state.game}/>
-        <SwipeInfoContainer />
+        <SwipeInfoContainer swipeCombo={this.state.game.score.goalOperations}/>
         <BoardContainer board={this.state.game.board} score={this.state.game.score} updateGame={this.updateGame.bind(this)} />
         <GameControlContainer board={this.state.game.board} newGame={this.newGame.bind(this)} refreshBoard={this.refreshBoard.bind(this)} />
       </View>

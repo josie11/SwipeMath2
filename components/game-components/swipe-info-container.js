@@ -5,7 +5,7 @@ class SwipeInfoContainer extends Component {
   render() {
     return (
       <View>
-        <Text>future swipes</Text>
+        <Text>Operator Combo: {this.props.swipeCombo}</Text>
       </View>
     );
   }

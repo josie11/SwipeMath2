@@ -7,18 +7,18 @@ const operators = Operations.operators;
 export default class Score {
   constructor(goalNumber, goalSwipes, goalOperations) {
     this.score = 0;
-    this.goalNumber = goalNumber || this.generateGoalNumber();
-    this.goalSwipes = goalSwipes || this.generateGoalSwipes();
-    this.goalOperations = goalOperations || this.generateGoalOperations();
+    this.goalNumber = goalNumber || this.generateGoalNumber(goalNumber);
+    this.goalSwipes = goalSwipes || this.generateGoalSwipes(goalSwipes);
+    this.goalOperations = goalOperations || this.generateGoalOperations(this.goalSwipes);
     this.currentTiles = [];
     this.currentOperations = [];
+    this.patternControlMode = false;
   }
 
   //is only triggered if merge was successful
   //updates & checks for score
   updateScoreTracking(StartTile, endTile, operation) {
     //if not switching to different part of board
-    debugger;
     if(StartTile.id === this.getLastTileSwipedId()) {
       this.checkCurrentSwipe(operation, endTile);
     } else {
@@ -99,15 +99,23 @@ export default class Score {
 
   //eventually will have difficulty algorithm
   generateGoalNumber() {
-
+    return this.randomNum(6, 15);
   }
 
   generateGoalSwipes() {
-
+    return this.randomNum(2, 3);
   }
 
   generateGoalOperations(goalSwipes) {
-
+    let max = operators.length - 1;
+    let randomOperators = [];
+    for(let i = 0; i < goalSwipes; i++) {
+      randomOperators.push(operators[this.randomNum(0, max)]);
+    }
+    return randomOperators;
   }
 
+  randomNum(min, max) {
+    return Math.floor(Math.random() *(max-min+1)+min);
+  }
 }

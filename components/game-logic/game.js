@@ -4,13 +4,13 @@ import Board from './board.js'
 import Score from './scoring-logic.js'
 
 class Game {
-  constructor(size = 5, goalNumber = 10, goalSwipes = 2, goalOperations = ['+', '+']) {
-    this.board = new Board(size, goalNumber);
+  constructor(size = 5, goalNumber, goalSwipes, goalOperations) {
     this.score = new Score(goalNumber, goalSwipes, goalOperations);
+    this.board = new Board(size, this.score.goalNumber);
   }
 
-  refreshBoard(size = 5, goalNumber = 10) {
-    this.board = new Board(size, goalNumber);
+  refreshBoard(size = 5) {
+    this.board = new Board(size, this.score.goalNumber);
   }
 
   updateScore(value) {
