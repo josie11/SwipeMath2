@@ -16,7 +16,7 @@ class BoardContainer extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <Board board={this.props.board} />
+        <Board board={this.props.board} score={this.props.score} />
       </View>
     );
   }

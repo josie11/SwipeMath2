@@ -4,9 +4,9 @@ import Board from './board.js'
 import Score from './scoring-logic.js'
 
 class Game {
-  constructor(size = 5, goalNumber = 10, goalSwipes = 2) {
+  constructor(size = 5, goalNumber = 10, goalSwipes = 2, goalOperations = ['+', '+']) {
     this.board = new Board(size, goalNumber);
-    this.score = new Score(goalNumber, goalSwipes);
+    this.score = new Score(goalNumber, goalSwipes, goalOperations);
   }
 
   refreshBoard(size = 5, goalNumber = 10) {
@@ -27,6 +27,10 @@ class Game {
 
   getGoalSwipes() {
     return this.score.goalSwipes;
+  }
+
+  getGoalOperations() {
+    return this.score.goalOperations;
   }
 }
 

@@ -4,12 +4,11 @@ import React, { Component } from 'react';
 import { View, StyleSheet } from 'react-native';
 
 import MathButton from './math-button.js';
+import Operations from '../game-logic/operations.js';
 
-const operators = ['+', '-', '*', '÷'];
-
+const operators = Operations.operators;
 const styles = StyleSheet.create({
   container: {
-
   },
 
   row: {

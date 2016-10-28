@@ -42,16 +42,20 @@ class Board extends Component {
       gridSize={this.props.board.gridSize}
       key={id}
       handleSwipe={this.handleSwipe.bind(this)}
-      getActiveTileId={this.props.board.getCurrentTile.bind(this.props.board)}
+      getActiveTileId={this.props.score.getLastTileSwipedId.bind(this.props.score)}
     />;
   }
 
+  //needs rewriting
   handleSwipe(id, direction) {
     let merged = this.props.board.startMerge(id, direction);
     if(merged) {
+      let endId = this.props.board.getEndId(id, direction);
+      let startTile = this.props.board.board[id], endTile = this.props.board.board[endId];
       this.updateBoard();
-      this.setState({activeTileId : this.props.board.getCurrentTile()});
-      //scoring logic check
+      this.props.score.updateScoreTracking(startTile, endTile, this.props.board.operator)
+      this.setState({activeTileId : this.props.score.getLastTileSwipedId()});
+      console.log(this.props.score);
     } else {
       this.setState({activeTileId : id});
     }

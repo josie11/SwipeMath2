@@ -9,7 +9,6 @@ class Board {
     this.goalNumber = goalNumber;
     this.board = this.constructBoard(gridSize, goalNumber);
     this.operator = '+';
-    this.currentTiles = [];
   }
 
   constructBoard(gridSize, goalNumber) {
@@ -18,7 +17,7 @@ class Board {
     return board;
   }
 
-  getNeighbor(id, direction) {
+  getEndId(id, direction) {
     let neighborAdjustors = { 'up': id - this.gridSize, 'down': id + this.gridSize, 'left': id - 1, 'right': id + 1 };
     return neighborAdjustors[direction];
   }
@@ -41,15 +40,13 @@ class Board {
   }
 
   startMerge(id, direction) {
-    let neighborTile = this.getNeighbor(id, direction);
+    let neighborTile = this.getEndId(id, direction);
     let validNeighbor = this.neighborTiles(id).includes(neighborTile);
     //if merged
     if(validNeighbor) {
       this.mergeTiles(id, neighborTile, this.operator);
       return true;
     } else {
-      //if didn't merge, check to see if need to refresh current swipes
-      this.checkCurrentSwipes(id, id);
       return false;
     }
   }
@@ -63,34 +60,11 @@ class Board {
     //merged tile resets
     this.newTile(startId);
     //check to see if in a new location on board
-    this.checkCurrentSwipes(startId, endId);
-  }
-
-  checkCurrentSwipes(startId, endId) {
-    if(!this.currentTiles.length) {
-      //no swipe history, just add to current swipes array
-      this.currentTiles.unshift(endId)
-    } else if(startId !== this.getCurrentTile()) {
-      //if current starting point is not the current tile
-      this.refreshCurrentSwipes();
-      this.currentTiles.unshift(endId)
-    } else {
-      //starting point is current active tile, add to currentTiles array
-      this.currentTiles.unshift(endId)
-    }
-  }
-
-  refreshCurrentSwipes() {
-    this.currentTiles = [];
-  }
-
-  getCurrentTile() {
-    return this.currentTiles[0];
   }
 
   //accesses operations from operations.js
   doMath(val1, op, val2) {
-    return Math.abs(Math.floor(Operations[op](val2, val1)));
+    return Math.abs(Math.floor(Operations.operations[op](val2, val1)));
   }
 
   //resets tile after it is merged

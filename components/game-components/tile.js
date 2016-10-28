@@ -7,10 +7,10 @@ import Dimensions from '../styles/dimensions.js'
 
 const width = Dimensions.boardContainer.width;
 
-const tileStyle = function(maxSize, active = false) {
+const tileStyle = function(maxSize, active = false, clicked = false) {
   let margin = maxSize * .025;
   let maxLessMargin = maxSize - (margin * 4);
-  let color = active ? Colors.tangoPink : Colors.turquoise;
+  let color = active ? Colors.tangoPink : clicked ? Colors.sunsetOrange : Colors.turquoise;
   return {
     backgroundColor: color,
     width: maxLessMargin,
@@ -38,6 +38,7 @@ const styles = StyleSheet.create({
 class Tile extends Component {
   constructor(props) {
     super(props);
+    this.state = {activeId: this.props.activeTile, clicked: false};
   }
 
   componentWillMount() {
@@ -46,14 +47,11 @@ class Tile extends Component {
 
       //start tile clicked
       onPanResponderGrant: (evt, gestureState) => {
-        // console.log('started gesture', this.props.tileData, 'TILEEEEE');
-        // The guesture has started. Show visual feedback so the user knows
-        // what is happening!
-
-        // gestureState.{x,y}0 will be set to zero now
+        this.setState({clicked: true});
       },
 
       onPanResponderRelease: (e, gs) => {
+        this.setState({clicked: false});
         let sgs = new SimpleGesture(e,gs);
         let id = this.props.tileData.id;
         if(sgs.isSwipeUp()) this.props.handleSwipe(id, 'up');
@@ -70,7 +68,7 @@ class Tile extends Component {
   render() {
     let maxTileSize = width / this.props.gridSize;
     return (
-          <View style={tileStyle(maxTileSize, this.props.activeTile)} { ...this._panResponder.panHandlers }>
+          <View style={tileStyle(maxTileSize, this.props.activeTile, this.state.clicked)} { ...this._panResponder.panHandlers }>
             <View style={styles.tileContainer}>
               <Text style={textStyle(maxTileSize)}>{this.props.tileData.value}</Text>
             </View>
